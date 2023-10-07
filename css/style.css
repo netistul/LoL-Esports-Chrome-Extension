@@ -1,98 +1,326 @@
 body, html {
-    margin: 0;
-    padding: 0;
-    width: 300px;
-    overflow: hidden; 
-  }
+  margin: 0;
+  padding: 0;
+  width: 300px;
+  overflow: hidden; 
+}
+
+#header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1f272f;
+  color: white;
+  padding: 1px;
+  font-size: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+.text {
+  font-family: 'Cocogoose Pro Regular Trial', sans-serif;
+  font-size: 22px;
+  color: #8f8a8a;
+  text-shadow: 0px 2px 3px rgba(0,0,0,0.3);
+  transform: translateX(14px);
+}
+
+.text:hover {
+  color: #fff;
+}
+
+
+body:hover #hoverImage {
+  visibility: visible;
+  opacity: 1;
+  display: inline-block;
+  color: #fff;
+}
+
+
+#hoverImage {
+  visibility: visible;
+  opacity: 0.2;
+  vertical-align: middle;
+  transform: translateY(5px);
+  transition: opacity 3.3s;
+  margin-left: -10px;
+  height: 35px;
+  width: auto;
+}
+
+.empty-box {
+  width: 16px;
+}
+
+.hidden {
+  display: none;
+}
+
+#tooltip {
+  display: none;
+  position: absolute;
+  background-color: #b25050;
+  color: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  z-index: 1;
+  opacity: 0;
+  width: 250px;
+  left: 100%;
+  top: 180%;
+  transform: translateY(-50%);
+  transition: opacity 0.3s ease;
+}
+
+.checkbox-wrapper:hover #tooltip {
+  display: block;
+  opacity: 0.9;
+}
+
+#match-list {
+  overflow-y: auto; 
+}
+
+#match-list .simplebar-scrollbar::before {
+  background-color: #007BFF; 
+}
+.team {
+  display: flex;
+  align-items: center;
+}
+
+.team-logo {
+  width: 20px;
+  height: 20px;
+  margin-right: 7px;
+}
+
+.team-name {
+  font-size: 15px;
+  font-weight: bold;
+  font-family: 'Roboto Regular', sans-serif;
+}
+
+.d-flex.w-100.justify-content-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-name {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 5px;
+  flex-grow: 0;
+  flex-shrink: 1;
+}
+
+.match-time {
+  font-size: 14px;
+  white-space: nowrap;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.match-date {
+  font-size: 10px;
+  color: #888;
+  display: block;
+}
+
+.list-group-item:hover {
+  background-color: #343a40;
+  cursor: pointer;
+}
+
+
+.list-group-item:hover .team-name, 
+.list-group-item:hover .event-name,
+.list-group-item:hover .match-time {
+  color: white;
+}
+
+#filterSwitch {
+  position: relative;
+  margin-right: 10px;
+}
+
+#filterSwitch:hover::after:not(:empty) {
+  content: attr(title);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 4px;
+  z-index: 1;
+  opacity: 0.9;
+  width: auto;
+  white-space: nowrap;
+}
+
+.bg-container {
+  position: absolute;
+  top: 20%;
+  width: 100%;
+}
+
+.box {
+  position: absolute;
+  top: 0;
+  transform: rotate(80deg);
+  left: 20%;
+}
+
+@font-face {
+  font-family: 'Roboto Regular';
+  src: url('./Roboto-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cocogoose Pro Regular Trial';
+  src: url('./Cocogoose Pro Regular Trial.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
   
-  /* Add styles for the header */
-  #header {
-    background-color: #1f272f;
-    color: white;
-    text-align: center;
-    padding: 1px;
-    font-size: 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    font-family: 'Arcon Regular', sans-serif;
-  }
-  
-  #match-list {
-    overflow-y: auto; 
-  }
-  
-  /* Custom scrollbar styles */
-  #match-list .simplebar-scrollbar::before {
-    background-color: #007BFF; 
-  }
-  .team {
-    display: flex;
-    align-items: center;
-  }
-  
-  .team-logo {
-    width: 20px;
-    height: 20px;
-    margin-right: 7px;
-  }
-  
-  .team-name {
-    font-size: 15px;
-    font-weight: bold;
-    font-family: 'Roboto Regular', sans-serif;
-  }
-  
-  .d-flex.w-100.justify-content-between {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .event-name {
-    font-size: 12px;
-    color: #888;
-    margin-bottom: 5px;
-    /* Remove white-space and text-overflow rules */
-    flex-grow: 0;
-    flex-shrink: 1;
-  }
-  
-  .match-time {
-    font-size: 14px;
-    white-space: nowrap; /* This can stay the same */
-    flex-grow: 0;
-    flex-shrink: 0;
-  }
-  .list-group-item:hover {
-    background-color: #343a40;
-    cursor: pointer;
-  }
-  
-  
-  .list-group-item:hover .team-name, 
-  .list-group-item:hover .event-name,
-  .list-group-item:hover .match-time {
-    color: white;
-  }
-  
-  @font-face {
-    font-family: 'Roboto Thin';
-    src: url('./Roboto-Thin.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: 'Roboto Regular';
-    src: url('./Roboto-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: 'Arcon Regular';
-    src: url('./Arcon-Regular.otf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-    
-    
-  
+
+.checkbox-wrapper {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.checkbox-container {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  transform: scale(0.3);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.3);
+}
+
+#filterSwitch {
+  display: none;
+}
+
+label {
+  position: relative;
+  top: 50%;
+  right: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  background: 
+      radial-gradient(circle at 20% 25%, #fff, transparent 12%),
+      radial-gradient(circle at 80% 20%, #fff, transparent 8%),
+      radial-gradient(circle at 20% 80%, #fff, transparent 8%),
+      radial-gradient(circle at 80% 80%, #fff, transparent 5%),
+      #b22222; /* Adjusted the red for a deeper mushroom red */
+  transform: translateY(-50%);
+  border-radius: 50%;
+  box-shadow: 0 7px 10px #bd4c4c;
+  cursor: pointer;
+  transition: 0.2s ease transform, 0.2s ease background-color,
+    0.2s ease box-shadow;
+  overflow: hidden;
+  z-index: 1;
+  border: 2px solid rgba(0, 0, 0, 0.44);
+}
+
+
+label:before {
+content: "";
+position: absolute;
+top: 50%;
+right: 0;
+left: 0;
+width: 70px;
+height: 70px;
+margin: 0 auto;
+background-color: #a9a4a4;
+transform: translateY(-50%);
+border-radius: 50%;
+box-shadow: inset 0 7px 10px #ffbeb8;
+transition: 0.2s ease width, 0.2s ease height;
+border: 1px solid black;
+}
+
+label:hover:before {
+width: 55px;
+height: 55px;
+box-shadow: inset 0 7px 10px #ff9d96;
+}
+
+label:active {
+transform: translateY(-50%) scale(0.9);
+}
+
+#tick_mark {
+position: absolute;
+top: -1px;
+right: 0;
+left: 0;
+width: 60px;
+height: 60px;
+margin: 0 auto;
+margin-left: 14px;
+transform: rotateZ(-40deg);
+}
+
+#tick_mark:before,
+#tick_mark:after {
+content: "";
+position: absolute;
+background-color: #a39f9f;
+border-radius: 2px;
+opacity: 0;
+transition: 0.2s ease transform, 0.2s ease opacity;
+}
+
+#tick_mark:before {
+left: 0;
+bottom: 0;
+width: 10px;
+height: 30px;
+box-shadow: -2px 0 5px rgba(0, 0, 0, 0.23);
+transform: translateY(-68px);
+}
+
+#tick_mark:after {
+left: 0;
+bottom: 0;
+width: 100%;
+height: 10px;
+box-shadow: 0 3px 5px rgba(0, 0, 0, 0.23);
+transform: translateX(78px);
+}
+
+#filterSwitch:checked + label {
+  background: radial-gradient(circle at 30% 30%, #fff, transparent 10%),
+  radial-gradient(circle at 70% 33%, #fff, transparent 10%),
+  radial-gradient(circle at 30% 70%, #fff, transparent 10%),
+  radial-gradient(circle at 70% 70%, #fff, transparent 10%),
+  #4CAF50;
+box-shadow: 0 7px 10px #92ff97;
+}
+
+#filterSwitch:checked + label:before {
+width: 0;
+height: 0;
+}
+
+#filterSwitch:checked + label #tick_mark:before,
+#filterSwitch:checked + label #tick_mark:after {
+transform: translate(0);
+opacity: 1;
+display: none;
+}
+

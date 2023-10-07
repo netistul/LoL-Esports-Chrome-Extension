@@ -6,12 +6,28 @@
   <link rel="stylesheet" href="css/simplebar.min.css">
   <link rel="stylesheet" href="css/style.css">
 
-  <title>HLTV Matches</title>
+  <title>LoL Matches</title>
 </head>
 <body>
-  <!-- Add the header -->
-  <div id="header">HLTV Matches</div>
+
+<!-- Add the header -->
+<div id="header">
+  <div class="checkbox-wrapper">
+    <div class="checkbox-container">
+      <input type="checkbox" id="filterSwitch">
+      <label for="filterSwitch">
+        <div id="tick_mark"></div>
+      </label>
+    </div>
+    <div id="tooltip">Check this box to see only matches organized by Riot Games, such as LCS, LEC, Worlds, etc.</div>
+  </div>
+  <span class="text">LoL Matches</span>
+  <img id="hoverImage" src="css/teemo.png" alt="Description of the image">
+  <div class="empty-box"></div> <!-- Empty box to balance the checkbox -->
+</div>
+
   
+
   <!-- The container div -->
   <div class="list-group" id="match-list" data-simplebar>
     <!-- Matches will be inserted here -->
