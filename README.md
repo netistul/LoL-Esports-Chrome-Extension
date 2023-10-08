@@ -4,8 +4,6 @@ This Chrome extension seamlessly integrates with an API endpoint to provide up-t
 The backend for this project is hosted in a separate repository: [LOL-Match-Fetcher](https://github.com/netistul/LOL-Match-Fetcher). The backend script fetches and formats match data, saving it to a JSON file. This JSON file is then used by the frontend to display match information.
 ## Official Extension
 
-## Official Extension
-
 <table>
   <tr>
     <td><img src="https://fonts.gstatic.com/s/i/productlogos/chrome_store/v7/192px.svg" width="100"/></td>
