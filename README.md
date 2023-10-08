@@ -4,5 +4,7 @@ This Chrome extension seamlessly integrates with an API endpoint to provide up-t
 The backend for this project is hosted in a separate repository: [LOL-Match-Fetcher](https://github.com/netistul/LOL-Match-Fetcher). The backend script fetches and formats match data, saving it to a JSON file. This JSON file is then used by the frontend to display match information.
 ## Official Extension
 
-[![LoL Esports Matches on Chrome Web Store](https://www.gstatic.com/chrome/webstore/images/developer_dashboard_2x.png)](https://chrome.google.com/webstore/detail/bnidojpchbhlajbccfkhakcjeidbphia)
+![Chrome Web Store Logo](https://fonts.gstatic.com/s/i/productlogos/chrome_store/v7/192px.svg) 
+[LoL Esports Matches on Chrome Web Store](https://chrome.google.com/webstore/detail/bnidojpchbhlajbccfkhakcjeidbphia)
+
 
