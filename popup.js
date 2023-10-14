@@ -153,13 +153,14 @@ document.addEventListener("DOMContentLoaded", function() {
     // Update the DOM once at the end
     matchList.innerHTML = newInnerHTML;
 
-    // Your existing code for localStorage and other operations
     localStorage.setItem('cachedMatchListHTML', newInnerHTML);
 
+    const minHeight = 200;
     const contentHeight = matchList.scrollHeight;
-    const maxHeight = Math.min(contentHeight, 500);
+    const maxHeight = Math.max(contentHeight, minHeight);
     matchList.style.maxHeight = `${maxHeight}px`;
     new SimpleBar(matchList, { autoHide: false });
+
 
     if (!filterSwitch.checked && shouldCloseWindow) {
         window.close();
