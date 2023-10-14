@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "LoL Esports Matches",
-    "version": "1.0",
+    "version": "1.3",
     "description": "Displays matches of the day for League of Legends",
     "permissions": ["storage", "alarms"],
     "host_permissions": [

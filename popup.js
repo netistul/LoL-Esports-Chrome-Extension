@@ -150,21 +150,31 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Update the DOM once at the end
-    matchList.innerHTML = newInnerHTML;
+      // Update the DOM with the new content
+      matchList.innerHTML = newInnerHTML;
 
-    localStorage.setItem('cachedMatchListHTML', newInnerHTML);
+      // Store the new HTML in local storage
+      localStorage.setItem('cachedMatchListHTML', newInnerHTML);
 
-    const minHeight = 200;
-    const contentHeight = matchList.scrollHeight;
-    const maxHeight = Math.max(contentHeight, minHeight);
-    matchList.style.maxHeight = `${maxHeight}px`;
-    new SimpleBar(matchList, { autoHide: false });
+      // Calculate the content height after setting the new content
+      const contentHeight = matchList.scrollHeight;
 
+      // Assuming each match has a height of 80 pixels
+      const singleMatchHeight = 80;
+      let maxHeight;
 
-    if (!filterSwitch.checked && shouldCloseWindow) {
-        window.close();
-    }
+      // Determine the maxHeight based on the number of matches
+      if (contentHeight > singleMatchHeight * 2) {
+          maxHeight = 500;
+      } else {
+          maxHeight = contentHeight;
+      }
+
+      // Set the maxHeight for the matchList
+      matchList.style.maxHeight = `${maxHeight}px`;
+
+      // Initialize SimpleBar for the custom scrollbar
+      new SimpleBar(matchList, { autoHide: false });
 }
 
 
