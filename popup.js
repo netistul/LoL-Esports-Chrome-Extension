@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
     tooltip.classList.add("hidden");
   });
 
-  const majorLoLEvents = ["World Championship", "Worlds", "Mid-Season Invitational", "LCS", "LEC", "LCK", "LPL", "CBLOL", "LCL", "LJL", "LLA", "OPL", "PCS", "TCL", "VCS"];
+  const majorLoLEvents = ["World Championship", "Worlds", "Mid-Season Invitational", "LCS", "LEC", "LCK", "LPL", "CBLOL", "LCL", "LJL", "LLA", "OPL", "PCS", "TCL", "VCS", "Swiss Stage"];
 
   // Batched retrieval from Chrome's storage for filterState and matchesData
   chrome.storage.local.get(['filterState', 'matchesData'], function(result) {
