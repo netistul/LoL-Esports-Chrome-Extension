@@ -83,7 +83,7 @@ body:hover #hoverImage {
 }
 
 #match-list .simplebar-scrollbar::before {
-  background-color: #007BFF; 
+  background-color: #ff2200; 
 }
 .team {
   display: flex;

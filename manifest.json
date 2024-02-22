@@ -1,11 +1,11 @@
 {
     "manifest_version": 3,
     "name": "LoL Esports Matches",
-    "version": "1.4",
+    "version": "1.6",
     "description": "Displays matches of the day for League of Legends",
     "permissions": ["storage", "alarms"],
     "host_permissions": [
-      "https://azi.blob.core.windows.net/hltv/lolmatches.json"
+      "https://example.blob.core.windows.net/hltv/lolmatches.json"
     ],
     "background": {
       "service_worker": "background.js"
