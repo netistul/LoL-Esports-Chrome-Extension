@@ -1,22 +1,21 @@
 {
-    "manifest_version": 3,
-    "name": "LoL Esports Matches",
-    "version": "1.6",
-    "description": "Displays matches of the day for League of Legends",
-    "permissions": ["storage", "alarms"],
-    "host_permissions": [
-      "https://example.blob.core.windows.net/hltv/lolmatches.json"
-    ],
-    "background": {
-      "service_worker": "background.js"
-    },
-    "action": {
-      "default_popup": "popup.html"
-    },
-    "icons": {
-      "16": "icon.png",
-      "48": "icon.png",
-      "128": "icon.png"
-    }
+  "manifest_version": 3,
+  "name": "LoL Esports Matches",
+  "version": "1.7",
+  "description": "Displays matches of the day for League of Legends",
+  "permissions": ["storage", "alarms"],
+  "host_permissions": [
+    "https://example.blob.core.windows.net/hltv/lolmatches.json"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
   }
-  
+}
