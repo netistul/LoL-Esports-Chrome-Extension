@@ -1,27 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const matchList = document.getElementById("match-list");
 
-  // Attach the event delegation handlers to the parent ('matchList')
-  matchList.addEventListener("mouseover", function (event) {
-    // Identify the target element
-    const targetElement = event.target;
-
-    // Check if the target element is the 'footerLink'
-    if (targetElement.id === "footer-link") {
-      targetElement.style.color = "lightblue";
-    }
-  });
-
-  matchList.addEventListener("mouseout", function (event) {
-    // Identify the target element
-    const targetElement = event.target;
-
-    // Check if the target element is the 'footerLink'
-    if (targetElement.id === "footer-link") {
-      targetElement.style.color = "blue";
-    }
-  });
-
   // Initial load from cache
   const cachedMatchListHTML = localStorage.getItem('cachedMatchListHTML');
   if (cachedMatchListHTML) {
@@ -96,11 +75,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (matchesWithin48Hrs.length === 0) {
         newInnerHTML = `
-              <a href="https://lolesports.com/schedule" target="_blank" style="position: relative; display: inline-block;">
-              <img src="css/teemowaiting.png" alt="No matches" style="width:300px; height:300px;">
-              <div id="footer-link" style="position: absolute; bottom: 0; color: blue; text-align: center; width: 300px; background-color: rgba(0, 0, 0, 0.4);">Click here for the full schedule</div>
-              </a>
-          `;
+            <a href="https://lolesports.com/schedule" target="_blank" class="no-matches-link">
+                <img src="css/teemowaiting.png" alt="No matches" class="no-matches-image">
+                <div class="footer-link">Click here for the full schedule</div>
+            </a>
+        `;
       } else {
         const sortedMatches = matchesWithin48Hrs.sort((a, b) => {
           const dateA = new Date(a.date);
@@ -112,11 +91,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (filteredMatches.length === 0) {
           newInnerHTML = `
-                  <a href="https://lolesports.com/schedule" target="_blank" style="position: relative; display: inline-block;">
-                  <img src="css/teemowaiting.png" alt="No matches" style="width:300px; height:300px;">
-                  <div id="footer-link" style="position: absolute; bottom: 0; color: blue; text-align: center; width: 300px; background-color: rgba(0, 0, 0, 0.4);">Click here for the full schedule</div>
-                  </a>
-              `;
+              <a href="https://lolesports.com/schedule" target="_blank" class="no-matches-link">
+                  <img src="css/teemowaiting.png" alt="No matches" class="no-matches-image">
+                  <div class="footer-link">Click here for the full schedule</div>
+              </a>
+          `;
         } else {
           newInnerHTML = filteredMatches.map(match => {
             const team1Logo = (match.team1Logo && match.team1Logo !== "Logo not available") ? match.team1Logo : 'https://www.hltv.org/img/static/team/placeholder.svg';
