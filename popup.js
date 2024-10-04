@@ -1,8 +1,8 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   const matchList = document.getElementById("match-list");
 
   // Attach the event delegation handlers to the parent ('matchList')
-  matchList.addEventListener("mouseover", function(event) {
+  matchList.addEventListener("mouseover", function (event) {
     // Identify the target element
     const targetElement = event.target;
 
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
-  matchList.addEventListener("mouseout", function(event) {
+  matchList.addEventListener("mouseout", function (event) {
     // Identify the target element
     const targetElement = event.target;
 
@@ -31,18 +31,18 @@ document.addEventListener("DOMContentLoaded", function() {
   const filterSwitch = document.getElementById("filterSwitch");
   const tooltip = document.getElementById("tooltip");
 
-  filterSwitch.addEventListener("mouseenter", function() {
+  filterSwitch.addEventListener("mouseenter", function () {
     tooltip.classList.remove("hidden");
   });
 
-  filterSwitch.addEventListener("mouseleave", function() {
+  filterSwitch.addEventListener("mouseleave", function () {
     tooltip.classList.add("hidden");
   });
 
   const majorLoLEvents = ["World Championship", "Worlds", "Mid-Season Invitational", "LCS", "LEC", "LCK", "LPL", "CBLOL", "LCL", "LJL", "LLA", "OPL", "PCS", "TCL", "VCS", "Swiss Stage"];
 
   // Batched retrieval from Chrome's storage for filterState and matchesData
-  chrome.storage.local.get(['filterState', 'matchesData'], function(result) {
+  chrome.storage.local.get(['filterState', 'matchesData'], function (result) {
     if (result.filterState !== undefined) {
       filterSwitch.checked = result.filterState;
     }
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // Add event listener for filter switch
-  filterSwitch.addEventListener("change", function() {
+  filterSwitch.addEventListener("change", function () {
     // Save the new filter state to Chrome's storage
     chrome.storage.local.set({ 'filterState': filterSwitch.checked });
     updateData(true);
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (data === null) {
       // If data is null, fetch it here (only if it's really necessary)
-      chrome.storage.local.get('matchesData', function(result) {
+      chrome.storage.local.get('matchesData', function (result) {
         processData(result.matchesData, shouldCloseWindow);
       });
     } else {
@@ -80,48 +80,54 @@ document.addEventListener("DOMContentLoaded", function() {
       const limitedData = data.slice(0, 20);
       const today = new Date();
       const msPer48Hrs = 48 * 60 * 60 * 1000;
+      const msPer3Hrs = 3 * 60 * 60 * 1000;  // Add a 3-hour buffer
 
       const matchesWithin48Hrs = limitedData.filter(match => {
-          if (match.date === "Date not specified") return true;
-          const matchDate = new Date(match.date);
-          const timeDifference = matchDate.getTime() - today.getTime();
-          return timeDifference >= 0 && timeDifference <= msPer48Hrs;
+        if (match.date === "Date not specified") return true;
+        const matchDate = new Date(match.date);
+        const timeDifference = matchDate.getTime() - today.getTime();
+
+        // Calculate the match end time with the 3-hour buffer
+        const matchEndTime = matchDate.getTime() + msPer3Hrs;
+
+        // Display matches if they are starting soon, ongoing, or within 48 hours
+        return timeDifference >= -msPer3Hrs && today.getTime() <= matchEndTime && timeDifference <= msPer48Hrs;
       });
 
       if (matchesWithin48Hrs.length === 0) {
-          newInnerHTML = `
+        newInnerHTML = `
               <a href="https://lolesports.com/schedule" target="_blank" style="position: relative; display: inline-block;">
               <img src="css/teemowaiting.png" alt="No matches" style="width:300px; height:300px;">
               <div id="footer-link" style="position: absolute; bottom: 0; color: blue; text-align: center; width: 300px; background-color: rgba(0, 0, 0, 0.4);">Click here for the full schedule</div>
               </a>
           `;
       } else {
-          const sortedMatches = matchesWithin48Hrs.sort((a, b) => {
-              const dateA = new Date(a.date);
-              const dateB = new Date(b.date);
-              return dateA - dateB;
-          });
+        const sortedMatches = matchesWithin48Hrs.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          return dateA - dateB;
+        });
 
-          const filteredMatches = filterSwitch.checked ? sortedMatches.filter(match => majorLoLEvents.some(event => match.event.includes(event))) : sortedMatches;
+        const filteredMatches = filterSwitch.checked ? sortedMatches.filter(match => majorLoLEvents.some(event => match.event.includes(event))) : sortedMatches;
 
-          if (filteredMatches.length === 0) {
-              newInnerHTML = `
+        if (filteredMatches.length === 0) {
+          newInnerHTML = `
                   <a href="https://lolesports.com/schedule" target="_blank" style="position: relative; display: inline-block;">
                   <img src="css/teemowaiting.png" alt="No matches" style="width:300px; height:300px;">
                   <div id="footer-link" style="position: absolute; bottom: 0; color: blue; text-align: center; width: 300px; background-color: rgba(0, 0, 0, 0.4);">Click here for the full schedule</div>
                   </a>
               `;
-          } else {
-              newInnerHTML = filteredMatches.map(match => {
-                  const team1Logo = (match.team1Logo && match.team1Logo !== "Logo not available") ? match.team1Logo : 'https://www.hltv.org/img/static/team/placeholder.svg';
-                  const team2Logo = (match.team2Logo && match.team2Logo !== "Logo not available") ? match.team2Logo : 'https://www.hltv.org/img/static/team/placeholder.svg';
-                  const eventName = match.event ? match.event : "Unknown Event";
-                  const matchDate = new Date(match.date);
-                  const localTime = match.date === "Date not specified" ? "Live" : matchDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                  const localDate = match.date === "Date not specified" ? "" : matchDate.toLocaleDateString();
-                  const matchLink = "https://lolesports.com/schedule";
+        } else {
+          newInnerHTML = filteredMatches.map(match => {
+            const team1Logo = (match.team1Logo && match.team1Logo !== "Logo not available") ? match.team1Logo : 'https://www.hltv.org/img/static/team/placeholder.svg';
+            const team2Logo = (match.team2Logo && match.team2Logo !== "Logo not available") ? match.team2Logo : 'https://www.hltv.org/img/static/team/placeholder.svg';
+            const eventName = match.event ? match.event : "Unknown Event";
+            const matchDate = new Date(match.date);
+            const localTime = match.date === "Date not specified" ? "Live" : matchDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const localDate = match.date === "Date not specified" ? "" : matchDate.toLocaleDateString();
+            const matchLink = "https://lolesports.com/schedule";
 
-                  return `
+            return `
                       <a href="${matchLink}" target="_blank" class="list-group-item list-group-item-dark">
                           <div class="d-flex w-100 justify-content-between">
                               <div>
@@ -142,8 +148,8 @@ document.addEventListener("DOMContentLoaded", function() {
                           </div>
                       </a>
                   `;
-              }).join('');
-          }
+          }).join('');
+        }
       }
     }
 
@@ -155,9 +161,9 @@ document.addEventListener("DOMContentLoaded", function() {
     let maxHeight;
 
     if (contentHeight > singleMatchHeight * 2) {
-        maxHeight = 500;
+      maxHeight = 500;
     } else {
-        maxHeight = contentHeight;
+      maxHeight = contentHeight;
     }
 
     matchList.style.maxHeight = `${maxHeight}px`;
@@ -173,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Listen for messages from background.js
   chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
+    function (request, sender, sendResponse) {
       if (request.message === 'data_updated') {
         updateData();
       }
